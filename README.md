@@ -42,7 +42,7 @@ attached.
 "Weather Dashboard for Five Days")
 
 ## URL of Github Repository
-
+https://najiba-haidari.github.io/week6-weather-dashboard/ 
 
 
 ## Credits
