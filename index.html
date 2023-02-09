@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Weather Dashboard</title>
+</head>
+<body onload="defaultScreen()">
+
+    <center>
+        <h1 id="date"></h1>
+    </center>
+   
+    <div id="inputDiv">
+        <h1>5 Days Weather Forecast</h1>
+        <p id="container">
+            City Name: <input type="text" id="cityInput">
+        </p>
+        <button id="click-button">Click</button>
+        <h2 id="cityName">--defaultname--</h2>
+    </div>
+
+    <div id="weatherContainer">
+        <div id="iconContainer">
+
+            <div class="icons">
+                <p class="weather" id="day1"></p>
+                <div class="image"><img src="./Assets/semi-sunny.png" class="imgClass" id="img1" alt=""></div>
+                <p class="minValues" id="day1Min">Loading</p>
+                <p class="maxValues" id="day1Max">Loading</p>
+            </div>
+
+            <div class="icons">
+                <p class="weather" id="day2"></p>
+                <div class="image"><img src="./Assets/semi-sunny.png" class="imgClass" id="img2" alt=""></div>
+                <p class="minValues" id="day2Min">Loading</p>
+                <p class="maxValues" id="day2Max">Loading</p>
+            </div>
+
+            <div class="icons">
+                <p class="weather" id="day3"></p>
+                <div class="image"><img src="./Assets/semi-sunny.png" class="imgClass" id="img3" alt=""></div>
+                <p class="minValues" id="day3Min">Loading</p>
+                <p class="maxValues" id="day3Max">Loading</p>
+            </div>
+
+            <div class="icons">
+                <p class="weather" id="day4"></p>
+                <div class="image"><img src="./Assets/semi-sunny.png" class="imgClass" id="img4" alt=""></div>
+                <p class="minValues" id="day4Min">Loading</p>
+                <p class="maxValues" id="day4Max">Loading</p>
+            </div>
+
+            <div class="icons">
+                <p class="weather" id="day5"></p>
+                <div class="image"><img src="./Assets/semi-sunny.png" class="imgClass" id="img5" alt=""></div>
+                <p class="minValues" id="day5Min">Loading</p>
+                <p class="maxValues" id="day5Max">Loading</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="./script.js"></script>
+</body>
+</html>
