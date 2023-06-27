@@ -16,8 +16,6 @@ var cityWeatherText = document.querySelector("#city-weather-text");
 var cityFormEl = document.querySelector("#city-form");
 var searchedContainerEl = document.querySelector("#searched-cities-container");
 
-
-
 var formSearchHandler = function (event) {
   event.preventDefault();
   var city = cityName.value.trim();
@@ -47,14 +45,16 @@ var getGeoLocation = function (city) {
       var lat = data[0].lat;
       var lon = data[0].lon;
       var location = { lat, lon };
-    //   console.log(location);
-    //   localStorage.setItem("location", JSON.stringify(location));
-    //   var getLocation = localStorage.getItem("location");
-    localStorage.setItem("searched-cities", JSON.stringify({lat : `${data[0].lat}`, lon:`${data[0].lon}`, name:city}));
-    //   console.log(getLocation);
-      // getCityFiveDayForecast(city, lat, lon)
+      localStorage.setItem(
+        "searched-cities",
+        JSON.stringify({
+          lat: `${data[0].lat}`,
+          lon: `${data[0].lon}`,
+          name: city,
+        })
+      );
       getCityCurrentWeather(city, lat, lon);
-      createCityButton()
+      createCityButton();
     })
     .catch(function (error) {
       alert("Unable to connect to OpenWeather");
@@ -70,7 +70,7 @@ var getCityCurrentWeather = function (city, lat, lon) {
     citySearchStorage.name +
     "&units=imperial&appid=" +
     apiKey;
-    console.log(apiUrlCurrent)
+  console.log(apiUrlCurrent);
   fetch(apiUrlCurrent)
     .then(function (response) {
       if (response.ok) {
@@ -87,7 +87,7 @@ var getCityCurrentWeather = function (city, lat, lon) {
       alert("Unable to connect to OpenWeather");
     });
 
-  // five day weather
+  //get five day weather
   var apiUrlfiveDay =
     "https://api.openweathermap.org/data/2.5/forecast?lat=" +
     citySearchStorage.lat +
@@ -96,7 +96,7 @@ var getCityCurrentWeather = function (city, lat, lon) {
     "&appid=" +
     apiKey +
     "&units=imperial";
-    console.log(apiUrlfiveDay)
+  console.log(apiUrlfiveDay);
   fetch(apiUrlfiveDay)
     .then(function (response) {
       if (response.ok) {
@@ -113,10 +113,7 @@ var getCityCurrentWeather = function (city, lat, lon) {
     });
 };
 
-// var getCityFiveDayForecast = function(lat, lon, city){
-
-// }
-/// display
+// display current weather
 var displayWeathers = function (forecast, searchTerm) {
   todayContainerEl.innerHTML = "";
   cityWeatherText.textContent = "Forecast for Today";
@@ -178,14 +175,12 @@ var displayWeathersFiveDay = function (forecast, searchTerm) {
   }
 
   console.log(forecast, searchTerm);
-  if (searchTerm){
+  if (searchTerm) {
     citySearchTerm.textContent = `5-Day Forecast ${searchTerm}`;
+  } else {
+    var city = cityName.value;
+    citySearchTerm.textContent = `5-Day Forecast`;
   }
-    else{
-         var city = cityName.value
-        citySearchTerm.textContent = `5-Day Forecast`;
-    }
-
 
   for (var i = 5; i < forecast.list.length; i += 8) {
     var forecastCard = document.createElement("div");
@@ -224,44 +219,54 @@ var displayWeathersFiveDay = function (forecast, searchTerm) {
 };
 
 function createCityButton() {
-    var searchedCities = JSON.parse(localStorage.getItem("searched-cities"));
-    console.log(searchedCities)
-  fetch("https://api.openweathermap.org/data/2.5/forecast?lat=" + searchedCities.lat +"&lon=" +searchedCities.lon +"&appid=" +apiKey +"&units=imperial")
-.then(function (response){
-    return response.json()
-    .then(function (data){
-        console.log(data)
-        var buttonSearch = document.createElement('button');
-        buttonSearch.textContent = searchedCities.name;
-        buttonSearch.classList = "btn btn-block bg-dark text-white w-100 m-1 ";
-        buttonSearch.setAttribute('data-city', searchedCities.name);
-        searchedContainerEl.appendChild(buttonSearch);
-        console.log(buttonSearch);
-        cityName.value = "";
-
-    })
-})
-
+  var searchedCities = JSON.parse(localStorage.getItem("searched-cities"));
+  console.log(searchedCities);
+  fetch(
+    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+      searchedCities.lat +
+      "&lon=" +
+      searchedCities.lon +
+      "&appid=" +
+      apiKey +
+      "&units=imperial"
+  ).then(function (response) {
+    return response.json().then(function (data) {
+      console.log(data);
+      var buttonSearch = document.createElement("button");
+      buttonSearch.textContent = searchedCities.name;
+      buttonSearch.classList = "btn btn-block bg-dark text-white w-100 m-1 ";
+      buttonSearch.setAttribute("data-city", searchedCities.name);
+      searchedContainerEl.appendChild(buttonSearch);
+      console.log(buttonSearch);
+      cityName.value = "";
+    });
+  });
 }
 
-function displayWeatherOnClickCityButton(name){
-    // var cityStorage = JSON.parse(localStorage.getItem("searched-cities"));
-    var city = name.length ? name: cityName.value;
-    console.log(city)
-  fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + apiKey)
-    .then(function (response) {
-     response.json()
-     .then(function (data) {
-        console.log(data);
-        localStorage.setItem("searched-cities", JSON.stringify({lat:data.coord.lat, lon:data.coord.lon, name:city}));
-         getCityCurrentWeather();
-          
-        });
-})};
+function displayWeatherOnClickCityButton(name) {
+  // var cityStorage = JSON.parse(localStorage.getItem("searched-cities"));
+  var city = name.length ? name : cityName.value;
+  console.log(city);
+  fetch(
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+      city +
+      "&units=imperial&appid=" +
+      apiKey
+  ).then(function (response) {
+    response.json().then(function (data) {
+      console.log(data);
+      localStorage.setItem(
+        "searched-cities",
+        JSON.stringify({ lat: data.coord.lat, lon: data.coord.lon, name: city })
+      );
+      getCityCurrentWeather();
+    });
+  });
+}
 
-searchedContainerEl.addEventListener("click", function(event){
-    var buttonData = event.target.getAttribute('data-city');
-    displayWeatherOnClickCityButton(buttonData);
+searchedContainerEl.addEventListener("click", function (event) {
+  var buttonData = event.target.getAttribute("data-city");
+  displayWeatherOnClickCityButton(buttonData);
 });
 
 cityFormEl.addEventListener("submit", formSearchHandler);
