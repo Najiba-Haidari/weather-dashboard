@@ -37,10 +37,10 @@ By using this webpage, you can easily see the weather status for 5 days for your
 
 ## screenshot of the page
 
-attached. 
+Old one
 ![Weather Dashboard](./Assets/screenshot.jpeg) 
-"Weather Dashboard for Five Days")
-
+Updated to
+![Weather Dashboard Updated](./Assets/Screenshot%202023-06-26%20at%206.43.20%20PM.png)
 ## URL of Github Repository
 https://najiba-haidari.github.io/week6-weather-dashboard/ 
 
