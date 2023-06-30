@@ -1,5 +1,5 @@
 weather-dashboard
-Week Six Challenge for Weather Dashboard
+Challenge for Weather Dashboard
 
 # Description
 
@@ -39,11 +39,11 @@ By using this webpage, you can easily see the weather status for 5 days for your
 
 Old one
 ![Weather Dashboard](./Assets/screenshot.jpeg) 
+
 Updated to
 ![Weather Dashboard Updated](./Assets/Screenshot%202023-06-26%20at%206.43.20%20PM.png)
 ## URL of Github Repository
-https://najiba-haidari.github.io/week6-weather-dashboard/ 
-
+https://najiba-haidari.github.io/weather-dashboard/
 
 ## Credits
 
